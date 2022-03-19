@@ -44,11 +44,11 @@ export function Countdown() {
       <h1>Pomoduds</h1>
 
       <Quantity>
-        <button onClick={() => setTime(time - 5 * 60)}>-</button>
+        <button onClick={() => setTime(time > 0 ? time - 5 * 60 : 0)}>-</button>
         <button onClick={() => setTime(20 * 60)}>20</button>
         <button onClick={() => setTime(25 * 60)}>25</button>
         <button onClick={() => setTime(30 * 60)}>30</button>
-        <button onClick={() => setTime(time + 5 * 60)}>+</button>
+        <button onClick={() => setTime(time < 60 * 60 ? time + 5 * 60 : 60 * 60)}>+</button>
       </Quantity>
 
       <Timer>
