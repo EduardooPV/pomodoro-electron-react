@@ -12,4 +12,8 @@ export const GlobalStyle = createGlobalStyle`
     font-size: 16px;
     color: #E1E1E6;
   }
+
+  button {
+    cursor: pointer;
+  }
 `

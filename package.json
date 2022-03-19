@@ -1,8 +1,8 @@
 {
-  "name": "electron-react-typescript",
-  "author": "Diego Fernandes <diego.schell.f@gmail.com>",
+  "name": "Pomoduds",
+  "author": "Luiz Eduardo Prado Veltroni",
   "version": "2.0.0",
-  "description": "An Electron boilerplate including TypeScript, React, Jest and ESLint.",
+  "description": "An Pomodoro Electron including TypeScript, React, and ESLint.",
   "main": "./.webpack/main/index.js",
   "scripts": {
     "start": "electron-forge start",
