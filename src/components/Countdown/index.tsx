@@ -1,5 +1,6 @@
 import { useState, useLayoutEffect } from 'react'
 import { Container, Timer, ContainerButtons, Quantity } from './styles'
+import PomoIcon from '../../../assets/pomo.png'
 
 export function Countdown() {
   // eslint-disable-next-line no-undef
@@ -33,12 +34,25 @@ export function Countdown() {
     if (isActive && time > 0) {
       countdownTimeout = setTimeout(() => {
         setTime(time - 1)
+
+        if (time === 5 * 60) {
+          alertNotify(
+            'Restam 5 minutos',
+            'Prepare-se para a revisão do estudo.'
+          )
+        }
       }, 1000)
     } else if (isActive && time === 0) {
+      alertNotify('Acabou!', 'Parabéns, você finalizou essa sprint!')
       setIsActive(false)
     }
   }, [isActive, time])
 
+  function alertNotify(title: string, body: string) {
+    // eslint-disable-next-line no-new
+    new Notification(title, { body: body, icon: PomoIcon })
+  }
+  
   return (
     <Container>
       <h1>Pomoduds</h1>
@@ -48,7 +62,11 @@ export function Countdown() {
         <button onClick={() => setTime(20 * 60)}>20</button>
         <button onClick={() => setTime(25 * 60)}>25</button>
         <button onClick={() => setTime(30 * 60)}>30</button>
-        <button onClick={() => setTime(time < 60 * 60 ? time + 5 * 60 : 60 * 60)}>+</button>
+        <button
+          onClick={() => setTime(time < 60 * 60 ? time + 5 * 60 : 60 * 60)}
+        >
+          +
+        </button>
       </Quantity>
 
       <Timer>
