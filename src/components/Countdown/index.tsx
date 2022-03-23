@@ -1,14 +1,22 @@
 import { useState, useLayoutEffect } from 'react'
 import { Container, Timer, ContainerButtons, Quantity } from './styles'
+import { Notify } from '../../utils/notify'
 import PomoIcon from '../../../assets/pomo.png'
+import { VscDebugStart, VscDebugRestart, VscStopCircle } from 'react-icons/vsc'
+
+import { useCountdown } from '../../context/countdown'
 
 export function Countdown() {
   // eslint-disable-next-line no-undef
   let countdownTimeout: NodeJS.Timeout
 
+  const [timeLocalStorage, setTimeLocalStorage] = useState(0)
   const [time, setTime] = useState(25 * 60)
   const [isActive, setIsActive] = useState(false)
   const [rest, setRest] = useState(false)
+  const [numberSprint, setNumberSprint] = useState(1)
+
+  const { addMoreOneSprintLocalStorage } = useCountdown()
 
   const minutes = Math.floor(time / 60)
   const seconds = time % 60
@@ -35,14 +43,25 @@ export function Countdown() {
     }
   }
 
+  function finishCountdown() {
+    if (!rest) {
+      setTime(5 * 60)
+      setRest(true)
+    } else {
+      setRest(false)
+      setTime(25 * 60)
+    }
+  }
+
   useLayoutEffect(() => {
+    // Verifica se é uma sprint de DESCANSO ou de ESTUDO
     if (rest) {
       if (isActive && time > 0) {
         countdownTimeout = setTimeout(() => {
           setTime(time - 1)
         }, 1000)
       } else if (isActive && time === 0) {
-        alertNotify('Acabou o descanso!', 'Bora voltar para a luta!')
+        Notify('Acabou o descanso!', 'Bora voltar para a luta!', PomoIcon)
         setIsActive(false)
         setTime(25 * 60)
         setRest(false)
@@ -51,34 +70,34 @@ export function Countdown() {
       if (isActive && time > 0) {
         countdownTimeout = setTimeout(() => {
           setTime(time - 1)
+          setTimeLocalStorage(timeLocalStorage + 1)
 
           if (time === 5 * 60) {
-            alertNotify(
+            Notify(
               'Restam 5 minutos',
-              'Prepare-se para a revisão do estudo.'
+              'Prepare-se para a revisão do estudo.',
+              PomoIcon
             )
           }
         }, 1000)
       } else if (isActive && time === 0) {
-        alertNotify('Acabou!', 'Parabéns, você finalizou essa sprint!')
+        Notify('Acabou!', 'Parabéns, você finalizou essa sprint!', PomoIcon)
         setIsActive(false)
-        setTime(0.1 * 60)
+        setTime(5 * 60)
         setRest(true)
+        setNumberSprint(numberSprint + 1)
+        addMoreOneSprintLocalStorage(timeLocalStorage)
       }
     }
   }, [isActive, time])
 
-  // setRest(true)
-  // setTime(5 * 60)
-
-  function alertNotify(title: string, body: string) {
-    // eslint-disable-next-line no-new
-    new Notification(title, { body: body, icon: PomoIcon })
-  }
+  // const sprintsDOM = storage.reduce((sumAmount: number, product: number) => sumAmount + product) 
 
   return (
     <Container>
       <h1>Pomoduds</h1>
+
+      <h2>{rest ? `Decansos: ${numberSprint - 1}` : `Sprints: ${numberSprint}`}</h2>
 
       {rest ? (
         <Quantity>
@@ -113,16 +132,18 @@ export function Countdown() {
       <ContainerButtons active={isActive}>
         {isActive ? (
           <button className="stop" onClick={stopCountdown}>
-            Parar
+            <VscStopCircle />
           </button>
         ) : (
           <button className="start" onClick={startCountdown}>
-            Iniciar
+            <VscDebugStart />
           </button>
         )}
         <button className="reset" onClick={() => resetCountdown()}>
-          Reiniciar
+          <VscDebugRestart />
         </button>
+
+        <button className="finish" onClick={() => finishCountdown()}>Finalizar Sprint</button>
       </ContainerButtons>
     </Container>
   )

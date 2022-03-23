@@ -6,7 +6,7 @@ type Props = {
 
 export const Container = styled.div`
   width: fit-content;
-  height: 100vh;
+  height: 100%;
 
   margin: 0 auto;
   padding: 25px;
@@ -18,8 +18,12 @@ export const Container = styled.div`
   gap: 2rem;
 
   h1 {
-    margin-bottom: 4rem;
     color: #2e384d;
+  }
+  
+  h2 {
+    color: #b3b3b3;
+    font-weight: bold;
   }
 `
 
@@ -96,6 +100,14 @@ export const ContainerButtons = styled.div<Props>`
     
     &:hover {
       background: rgba(90, 90, 90, 0.9);
+    }
+  }
+
+  .finish {
+    background: darkred;
+    
+    &:hover {
+      background: rgba(50, 50, 50, 1);
     }
   }
 `
