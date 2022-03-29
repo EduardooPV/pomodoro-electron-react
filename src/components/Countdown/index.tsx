@@ -2,7 +2,6 @@ import { useState, useLayoutEffect } from 'react'
 import { Container, Timer, ContainerButtons, Quantity } from './styles'
 import { Notify } from '../../utils/notify'
 import PomoIcon from '../../../assets/pomo.png'
-import { VscDebugStart, VscDebugRestart, VscStopCircle } from 'react-icons/vsc'
 
 import { useCountdown } from '../../context/countdown'
 
@@ -91,8 +90,6 @@ export function Countdown() {
     }
   }, [isActive, time])
 
-  // const sprintsDOM = storage.reduce((sumAmount: number, product: number) => sumAmount + product) 
-
   return (
     <Container>
       <h1>Pomoduds</h1>
@@ -132,15 +129,15 @@ export function Countdown() {
       <ContainerButtons active={isActive}>
         {isActive ? (
           <button className="stop" onClick={stopCountdown}>
-            <VscStopCircle />
+            PARAR
           </button>
         ) : (
           <button className="start" onClick={startCountdown}>
-            <VscDebugStart />
+            COMEÇAR
           </button>
         )}
         <button className="reset" onClick={() => resetCountdown()}>
-          <VscDebugRestart />
+          RECOMEÇAR
         </button>
 
         <button className="finish" onClick={() => finishCountdown()}>Finalizar Sprint</button>
