@@ -1,6 +1,6 @@
 ## Pomodoro
 
-Desenvolvi um Pomodoro para uso pessoal, ele funciona como na Técnica de Pomodoro onde termos sprints de 25 minutos (recomendado), e o Countdown conta conforme o tempo que você define, emitindo notificação quando restam 5 minutos (Para dar aquela organizada e revisada no conteudo) e quando finaliza a Sprint.
+Desenvolvi um Pomodoro para uso pessoal, ele funciona como na Técnica de Pomodoro onde temos sprints de 25 minutos (recomendado), e o Countdown conta conforme o tempo que você define, emitindo notificação quando restam 5 minutos (Para dar aquela organizada e revisada no conteudo) e quando finaliza a Sprint.
 
 Tecnologias: 
   - [Electron](https://www.electronjs.org/)
